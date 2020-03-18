@@ -33,10 +33,10 @@ void
 switch_interrupt_handler()
 {
   char p2val = switch_update_interrupt_sense();
-  //button1_down = (p2val & SW1) ? 0 : 1; /* 0 When switch 1 is up  */
+  button1_down = (p2val & SW1) ? 0 : 1; /* 0 When switch 1 is up  */
   button2_down = (p2val & SW2) ? 0 : 1; /* 0 When switch 2 is up  */
-  //button3_down = (p2val & SW3) ? 0 : 1; /* 0 When switch 3 is up  */
-  //button4_down = (p2val & SW4) ? 0:  1; /* 0 When switch 4 is up  */
+  button3_down = (p2val & SW3) ? 0 : 1; /* 0 When switch 3 is up  */
+  button4_down = (p2val & SW4) ? 0:  1; /* 0 When switch 4 is up  */
 
   switch_state_changed = 1;
   led_update();
