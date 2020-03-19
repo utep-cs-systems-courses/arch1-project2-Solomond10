@@ -1,15 +1,28 @@
-all:
-	(cd timerLib; make install)
-	(cd blink_demo; make)
-	(cd button_demo; make)
-	(cd buzzer_demo; make)
-	(cd dim_demo; make)
+# makfile configuration
+COMMON_OBJECTS  = 
+CPU             = msp430g2553
+CFLAGS          = -mmcu=${CPU} -I../h
+LDFLAGS		= -L/opt/ti/msp430_gcc/include
+
+#switch the compiler (for the internal make rules)
+CC              = msp430-elf-gcc
+AS              = msp430-elf-as
+
+all: button.elf 
+
+#additional rules for files
+button.elf: ${COMMON_OBJECTS} p1_interrupt_handler.o led.o switches.o buttonMain.o buzzer.o stateMachines.o wdInterruptHandler.o libTimer.a
+	${CC} ${CFLAGS} ${LDFLAGS} -o $@ $^
+
+load: button.elf
+	msp430loader.sh button.elf
 
 clean:
-	(cd timerLib; make clean)
-	(cd blink_demo; make clean)
-	(cd button_demo; make clean)
-	(cd buzzer_demo; make clean)
-	(cd dim_demo; make clean)
-	rm -rf lib h
+	rm -f *.o *.elf *.o~ *.h~ *.c~ *#
+
+led.o: led.c led.o
+
+wdInterruptHandler.o: stateMachines.h
+
+stateMachines.o: led.h stateMachines.h
 

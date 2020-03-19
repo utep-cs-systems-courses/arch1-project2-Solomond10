@@ -1,12 +1,11 @@
 #include <msp430.h>
 #include "switches.h"
 #include "led.h"
-
+#include "buzzer.h"
 
 char button1_down, button2_down, button3_down, button4_down, switch_state_changed;
-
 /* effectively boolean */
-//char switch_state_down, switch_state_changed; /* effectively boolean */
+short cycles = 1000;
 
 static char 
 switch_update_interrupt_sense()
@@ -27,17 +26,33 @@ switch_init()			/* setup switch */
   P2DIR &= ~SWITCHES;		/* set switches' bits for input */
   switch_update_interrupt_sense();
   led_update();
+  //buzzer_set_period(cycles);
+  
 }
 
 void
 switch_interrupt_handler()
 {
   char p2val = switch_update_interrupt_sense();
-  button1_down = (p2val & SW1) ? 0 : 1; /* 0 When switch 1 is up  */
-  button2_down = (p2val & SW2) ? 0 : 1; /* 0 When switch 2 is up  */
-  button3_down = (p2val & SW3) ? 0 : 1; /* 0 When switch 3 is up  */
-  button4_down = (p2val & SW4) ? 0:  1; /* 0 When switch 4 is up  */
-
+  button1_down = (p2val & SW1) ? 0 : 1;
+  button2_down = (p2val & SW2) ? 0 : 1;
+  button3_down = (p2val & SW3) ? 0 : 1;
+  button4_down = (p2val & SW4) ? 0:  1; 
   switch_state_changed = 1;
   led_update();
+  /*if(button1_down){
+    button1_down = 1;
+  }
+  else if(button2_down){
+    button2_down = 1;
+  }
+  else if(button3_down){
+    button3_down = 1;
+  }
+  else if(button4_down){
+    button4_down = 1;
+  }*/
+
+  // led_update();
+  
 }
