@@ -26,7 +26,6 @@ switch_init()			/* setup switch */
   P2DIR &= ~SWITCHES;		/* set switches' bits for input */
   switch_update_interrupt_sense();
   led_update();
-  //buzzer_set_period(cycles);
   
 }
 
@@ -40,19 +39,5 @@ switch_interrupt_handler()
   button4_down = (p2val & SW4) ? 0:  1; 
   switch_state_changed = 1;
   led_update();
-  /*if(button1_down){
-    button1_down = 1;
-  }
-  else if(button2_down){
-    button2_down = 1;
-  }
-  else if(button3_down){
-    button3_down = 1;
-  }
-  else if(button4_down){
-    button4_down = 1;
-  }*/
-
-  // led_update();
   
 }

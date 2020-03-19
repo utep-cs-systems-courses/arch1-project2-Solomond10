@@ -6,8 +6,8 @@
 #include "libTimer.h"
 
 short var = 1000;
-unsigned char red_on = 0, green_on = 0, led_changed = 0, state_status = 0;
-/* state_status is the status of state's 1,2,3 and 4. So if state_status is equal to 1 state we go to state 1.*/
+unsigned char red_on = 0, green_on = 0, led_changed = 0, current_state = 0;
+/* current_state is the status of state's 1,2,3 and 4. So if current_state is equal to 1 state we go to state 1.*/
 
 static char redVal[] = {0,LED_RED}, greenVal[] = {0,LED_GREEN};
 
@@ -25,8 +25,9 @@ void led_update(){
   if (switch_state_changed) {
     
     if (button1_down){
-      state_status = 1;
+      current_state = 1;
 
+      /* Turns off lights and buzzer before the new pattern starts  */
       red_on &= 0;
       green_on &= 0;
       buzzer_set_period(0);
@@ -41,8 +42,9 @@ void led_update(){
      
     }
     else if(button2_down){
-      state_status = 2;
-      
+      current_state = 2;
+
+      /* Turns off lights and buzzer before the new pattern starts  */
       red_on &= 0;
       green_on &= 0;
       buzzer_set_period(0);
@@ -55,27 +57,23 @@ void led_update(){
       }
     }
     else if(button3_down){
-      state_status = 3;
+      current_state = 3;
 
+      /* Turns off lights and buzzer before the new pattern starts  */
       red_on &= 0;
       green_on &= 0;
       buzzer_set_period(0);
     }
     else if(button4_down){
-       state_status = 4;
+       current_state = 4;
 
+       /* Turns off lights and buzzer before the new pattern starts  */
       red_on &= 0;
       green_on &= 0;
       buzzer_set_period(0);
       
     }
-    else if(button4_down & button1_down){
-      state_status = 5;
-
-      /* Shuts leds and buzzer off */
-      
-    }
-
+    
     P1OUT &= (0xff - LEDS) | ledFlags; // clear bits for off leds
     P1OUT |= ledFlags;         // set bits for on leds
   }

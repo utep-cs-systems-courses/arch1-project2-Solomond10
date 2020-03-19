@@ -6,7 +6,7 @@
 static enum {off=0, dim=1, bright=2} ledMode;
 static char pwmCount = 0;
 
-static enum {low=0, moderate=1, high=2, very_high=3} soundState;
+static enum {low=0, low_moderate=1, moderate=2, low_high=3, moderate_high=4, very_high=5} soundState;
 
 static enum {turn_off=0} offState;
 
@@ -30,19 +30,26 @@ void sm_sound(){
 
   case low:
     buzzer_set_period(200);
+    soundState = 5;
+    break;
+  case low_moderate:
+    buzzer_set_period(400);
     soundState = 1;
-    break;
   case moderate:
-    buzzer_set_period(500);
-    soundState = 2;
+    buzzer_set_period(575);
+    soundState = 4;
     break;
-  case high:
-    buzzer_set_period(700);
-    soundState = 3;
+  case low_high:
+    buzzer_set_period(750);
+    soundState = 2;
+    break;  
+  case moderate_high:
+    buzzer_set_period(900);
+    soundState = 0;
     break;
   case very_high:
-    buzzer_set_period(1000);
-    soundState = 0;
+    buzzer_set_period(1500);
+    soundState = 3;
     break;
     }
 }
@@ -64,6 +71,7 @@ void sm_fast_clock()
 void sm_update_led()
 {
   char new_green_on;
+  
   switch (ledMode) {
   case off:
     new_green_on = 0; break;
@@ -106,7 +114,47 @@ char toggle_green()	/* only toggle green if red is on!  */
 }
 
 
-void state_advance()		/* alternate between toggling red & green */
+void change_states()		/* Blink both red and green leds at the same time, then red only, 
+				   then green only, then off */
+{
+  char changed = 0;  
+
+  static enum {O=0, R=1, G=2, G_R=3} color = G_R;
+
+  switch (color) {
+
+  case O: //Turns off both red and green led
+    red_on &= 0;
+    green_on &= 0;
+    color = G_R;
+    break;
+    
+  case R: //Turns on red led and turns off green led
+    red_on = 1;
+    green_on &= 0;
+    color = G;
+    break;
+    
+  case G: //Turns on green led and turns off red led
+    green_on = 1;
+    red_on &= 0;
+    color = O;
+    break;
+    
+  case G_R: //Blinks both lights at the same time
+    green_on = 1;
+    red_on = 1;
+    color = R;
+    
+  }
+
+  led_changed = changed;
+  led_update();
+}
+
+
+/* alternate between toggling red & green */
+/*void state_advance()	        
 {
   char changed = 0;  
 
@@ -118,7 +166,7 @@ void state_advance()		/* alternate between toggling red & green */
 
   led_changed = changed;
   led_update();
-}
+}*/
 
 
 
