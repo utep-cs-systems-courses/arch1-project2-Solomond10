@@ -13,3 +13,4 @@ clean:
 	(cd dim_demo; make clean)
 	rm -rf lib h
 
+AS=$(CC)
