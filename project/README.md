@@ -14,5 +14,5 @@ leds alternate but implements the dimming of leds.
 
 The Makefile in this directory is used to build program on the msp430 in order
 to be able to run the program on the msp430. To implement program onto msp430
-simply type make load in the project folder. To get rid of unwanted executable
+simply type make load while in the project folder. To get rid of unwanted executable
 files simply type make clean while in the project folder.
