@@ -5,11 +5,11 @@
 
 static enum {off=0, dim=1, bright=2} ledMode;
 static char pwmCount = 0;
-
 static enum {low=0, low_moderate=1, moderate=2, low_high=3, moderate_high=4, very_high=5} soundState;
-
 static enum {turn_off=0} offState;
 
+
+/* Turns off buzzers and leds  */
 void sm_off(){
   
   switch(offState){
@@ -20,9 +20,9 @@ void sm_off(){
       offState = 0;
       break;
   }
-  
-  }
+}
 
+/* Changes the buzzer's frequency to get different sounds */
 void sm_sound(){
   
   static char soundState = 0;
@@ -86,34 +86,6 @@ void sm_update_led()
   }
 }
 
-char toggle_red()		/* always toggle! */
-{
-  static char state = 0;
-
-  switch (state) {
-  case 0:
-    red_on = 0;
-    state = 1;
-    break;
-  case 1:
-    red_on = 1;
-    state = 0;
-    break;
-  }
-  return 1;			/* always changes an led */
-}
-
-char toggle_green()	/* only toggle green if red is on!  */
-{
-  char changed = 0;
-  if (red_on) {
-    green_on ^= 1;
-    changed = 1;
-  }
-  return changed;
-}
-
-
 void change_states()		/* Blink both red and green leds at the same time, then red only, 
 				   then green only, then off */
 {
@@ -153,20 +125,6 @@ void change_states()		/* Blink both red and green leds at the same time, then re
 }
 
 
-/* alternate between toggling red & green */
-/*void state_advance()	        
-{
-  char changed = 0;  
-
-  static enum {R=0, G=1} color = G;
-  switch (color) {
-  case R: changed = toggle_red(); color = G; break;
-  case G: changed = toggle_green(); color = R; break;
-  }
-
-  led_changed = changed;
-  led_update();
-}*/
 
 
 

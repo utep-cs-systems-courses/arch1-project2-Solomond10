@@ -9,6 +9,9 @@ __interrupt_vec(WDT_VECTOR) WDT(){	/* 250 interrupts/sec */
   static char sound_count = 0;
 
   switch(current_state){
+
+
+    /* Button 2*/
   case 2:
     if(++blink_count == 75){
       change_states();
@@ -17,6 +20,7 @@ __interrupt_vec(WDT_VECTOR) WDT(){	/* 250 interrupts/sec */
     }
     break;
 
+    /* Button 3*/
   case 3:
     if(++blink_count == 25){
       change_states();
@@ -30,22 +34,7 @@ __interrupt_vec(WDT_VECTOR) WDT(){	/* 250 interrupts/sec */
     led_update();
     break;
 
-    /* if (++blink_count == 125) {
-      sm_slow_clock();
-      blink_count = 0;
-    }
-    sm_fast_clock();
-    sm_update_led();
-    led_update();
-    break;*/
-    
-    /*case 3:
-    if(++sound_count == 10){
-      sm_sound();
-    }
-    sound_speed();
-    break;*/
-
+    /*Button 4*/
   case 4:  
     if(++blink_count == 95){
       change_states();
@@ -59,7 +48,7 @@ __interrupt_vec(WDT_VECTOR) WDT(){	/* 250 interrupts/sec */
     led_update();
     break;
 
-    /*OFF BUTTON*/
+    /*Button 1 - OFF BUTTON*/
     case 1:
     if(++blink_count == 125){
       sm_off();
