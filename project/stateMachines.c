@@ -7,7 +7,7 @@ static enum {off=0, dim=1, bright=2} ledMode;
 static char pwmCount = 0;
 static enum {low=0, low_moderate=1, moderate=2, low_high=3, moderate_high=4, very_high=5} soundState;
 static enum {turn_off=0} offState;
-
+//extern sound_speed();
 
 /* Turns off buzzers and leds  */
 void sm_off(){
@@ -53,10 +53,6 @@ void sm_sound(){
     break;
     }
 }
-
-void sound_speed(){
-  soundState = (soundState + 1) % 3;
-  }
 
 void sm_slow_clock()
 {
