@@ -23,42 +23,42 @@ sm_sound:
 	mov JT(r12), r0
 	
 caselow:
-	mov #200, r12
-	call #buzzer_set_period
-	mov #1, &soundState
-	jmp esac
+	mov #200, r12		;set buzzer's period 200
+	call #buzzer_set_period	;calls buzzer_set_period method(200)
+	mov #1, &soundState	;Sets soundState = 1 so it can transition to the next case
+	jmp esac		;break
 	
 caselow_moderate:
-	mov #400, r12
-	call #buzzer_set_period
-	mov #2, &soundState
-	jmp esac
+	mov #400		;set buzzer's period 400
+	call #buzzer_set_period	;calls buzzer_set_period method(400)
+	mov #2, &soundState	;Sets soundState = 2 so it can transition to the next case
+	jmp esac		;break
 	
 casemoderate:
-	mov #575, r12
-	call #buzzer_set_period
-	mov #3, &soundState
-	jmp esac
+	mov #575, r12		;set buzzer's period 575
+	call #buzzer_set_period	;calls buzzer_set_period method(575)
+	mov #3, &soundState	;Sets soundState = 3 so it can transition to the next case
+	jmp esac		;break
 
 caselow_high:
-	mov #750, r12
-	call #buzzer_set_period
-	mov #4, &soundState
-	jmp esac
+	mov #750, r12		;set buzzer's period 750
+	call #buzzer_set_period	;calls buzzer_set_period method(750)
+	mov #4, &soundState	;Sets soundState = 4 so it can transition to the next case
+	jmp esac		;break
 	
 
 casemoderate_high:
-	mov #900, r12
-	call #buzzer_set_period
-	mov #5, &soundState
-	jmp esac
+	mov #900, r12		;set buzzer's period 900
+	call #buzzer_set_period	;calls buzzer_set_period method(900)
+	mov #5, &soundState	;Sets soundState = 5 so it can transition to the next case
+	jmp esac		;break
 	
 
 casevery_high:
-	mov #1500, r12
-	call #buzzer_set_period
-	mov #0, &soundState
-	jmp esac
+	mov #1500, r12		;set buzzer's period 1500
+	call #buzzer_set_period	;calls buzzer_set_period method(1500)
+	mov #0, &soundState	;Sets soundState = 0 so it can transition to the next case
+	jmp esac		;break
 
 esac:
 	pop r0

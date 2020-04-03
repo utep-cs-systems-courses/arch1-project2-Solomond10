@@ -37,7 +37,7 @@ __interrupt_vec(WDT_VECTOR) WDT(){	/* 250 interrupts/sec */
 
     /*Button 4*/
   case 4:  
-    if(++blink_count == 95){
+    if(++blink_count == 200){
       change_states();
       sm_slow_clock();
       sm_sound();
