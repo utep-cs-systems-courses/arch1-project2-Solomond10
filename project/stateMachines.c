@@ -5,7 +5,7 @@
 
 static enum {off=0, dim=1, bright=2} ledMode;
 static char pwmCount = 0;
-static enum {low=0, low_moderate=1, moderate=2, low_high=3, moderate_high=4, very_high=5} soundState;
+//static enum {low=0, low_moderate=1, moderate=2, low_high=3, moderate_high=4, very_high=5} soundState;
 static enum {turn_off=0} offState;
 
 /* Turns off buzzers and leds  */
@@ -22,7 +22,7 @@ void sm_off(){
 }
 
 /* Changes the buzzer's frequency to get different sounds */
-void sm_sound(){
+/*void sm_sound(){
   
   static char soundState = 0;
   switch(soundState){
@@ -51,7 +51,7 @@ void sm_sound(){
     soundState = 3;
     break;
     }
-}
+    }*/
 
 void sm_slow_clock()
 {

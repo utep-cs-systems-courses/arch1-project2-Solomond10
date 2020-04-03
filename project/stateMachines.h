@@ -8,7 +8,7 @@ void sm_fast_clock();
 void sm_slow_clock();
 void sm_update_led();
 void sm_off();
-void sm_sound();
+//void sm_sound();
 
 
 #endif // included
