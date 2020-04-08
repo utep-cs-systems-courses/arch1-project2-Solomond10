@@ -1,5 +1,8 @@
 #include "soundChange.h"
 
+	.arch msp430g2553
+	.p2align 1,0
+	
 	.data
 soundState:
 	.word 0
@@ -16,11 +19,10 @@ JT:
 	.global sm_sound
 	
 sm_sound:
-	.arch msp430g2553
-	.p2align 1,0
-	mov &soundState, r12
-	add r12, r12
-	mov JT(r12), r0
+	cmp #6, &soundState 	;range check
+	mov &soundState, r12	;moves soundState into r12
+	add r12, r12		;add r12 into r12 because its a word
+	mov JT(r12), r0		;moves the jumps table into the program counter so that the counter 				   ;begins at the beginning of the jump table
 	
 caselow:
 	mov #200, r12		;set buzzer's period 200
