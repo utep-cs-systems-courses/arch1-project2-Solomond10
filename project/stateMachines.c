@@ -3,8 +3,6 @@
 #include "led.h"
 #include "buzzer.h"
 
-static enum {off=0, dim=1, bright=2} ledMode;
-static char pwmCount = 0;
 static enum {turn_off=0} offState;
 
 /* Turns off buzzers and leds  */
@@ -17,34 +15,6 @@ void sm_off(){
       buzzer_set_period(0);
       offState = 0;
       break;
-  }
-}
-
-void sm_slow_clock()
-{
-  ledMode = (ledMode + 1) % 3;
-}
-
-void sm_fast_clock()
-{
-  pwmCount = (pwmCount + 1) & 3;
-}
-
-void sm_update_led()
-{
-  char new_green_on;
-  
-  switch (ledMode) {
-  case off:
-    new_green_on = 0; break;
-  case bright:
-    new_green_on = 1; break;
-  case dim:
-    new_green_on = (pwmCount < 1); break;
-  }
-  if (green_on != new_green_on){
-    green_on = new_green_on;
-    led_changed = 1;
   }
 }
 

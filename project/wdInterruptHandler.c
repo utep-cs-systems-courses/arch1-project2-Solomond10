@@ -1,7 +1,6 @@
 #include <msp430.h>
 #include "stateMachines.h"
 #include "led.h"
-#include "assembly.h"
 #include "soundChange.h"
 
 void
@@ -25,13 +24,10 @@ __interrupt_vec(WDT_VECTOR) WDT(){	/* 250 interrupts/sec */
   case 3:
     if(++blink_count == 25){
       change_states();
-      sm_slow_clock();
       sm_sound();
       blink_count = 0;
     }
-    sound_speed();
-    sm_fast_clock();
-    sm_update_led();
+
     led_update();
     break;
 
@@ -39,13 +35,9 @@ __interrupt_vec(WDT_VECTOR) WDT(){	/* 250 interrupts/sec */
   case 4:  
     if(++blink_count == 200){
       change_states();
-      sm_slow_clock();
       sm_sound();
       blink_count = 0;
     }
-    sound_speed();
-    sm_fast_clock();
-    sm_update_led();
     led_update();
     break;
 
