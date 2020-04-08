@@ -29,7 +29,7 @@ caselow:
 	jmp esac		;break
 	
 caselow_moderate:
-	mov #400		;set buzzer's period 400
+	mov #400, r12		;set buzzer's period 400
 	call #buzzer_set_period	;calls buzzer_set_period method(400)
 	mov #2, &soundState	;Sets soundState = 2 so it can transition to the next case
 	jmp esac		;break
