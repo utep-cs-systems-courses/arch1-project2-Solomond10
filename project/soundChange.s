@@ -8,7 +8,7 @@ soundState:
 	.word 0
 
 	.text
-JT:	
+JT:
 	.word caselow
 	.word caselow_moderate
 	.word casemoderate
@@ -19,8 +19,9 @@ JT:
 	.global sm_sound
 	
 sm_sound:
-	cmp #6, &soundState 	;range check
 	mov &soundState, r12	;moves soundState into r12
+	cmp #6, r12	 	;range check
+	jc esac			
 	add r12, r12		;add r12 into r12 because its a word
 	mov JT(r12), r0		;moves the jumps table into the program counter so that the counter 				   ;begins at the beginning of the jump table
 	
